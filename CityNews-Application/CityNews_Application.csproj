@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>CityNews_Application</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CityNews-Persistence\CityNews_Persistence.csproj" />
+    <ProjectReference Include="..\CityNews-ServiceAgent\CityNews_ServiceAgent.csproj" />
+  </ItemGroup>
+
+</Project>

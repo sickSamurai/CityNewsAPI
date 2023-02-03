@@ -2,13 +2,13 @@
 using System.Text.Json;
 using System.Threading.Tasks;
 
-using CityNews_Domain.Business.WeatherApi;
+using Domain.Business.WeatherApi;
 
 using Microsoft.Extensions.Configuration;
 
 using Newtonsoft.Json;
 
-namespace CityNews_ServiceAgent.WeatherAPI {
+namespace ServiceAgent.WeatherAPI {
   public class WeatherAPIClient : IWeatherAPI {
     private readonly IConfiguration configuration;
 

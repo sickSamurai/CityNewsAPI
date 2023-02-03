@@ -1,4 +1,4 @@
-﻿namespace CityNews_Domain.Business.WeatherApi
+﻿namespace Domain.Business.WeatherApi
 {
     public class WeatherResponse
     {

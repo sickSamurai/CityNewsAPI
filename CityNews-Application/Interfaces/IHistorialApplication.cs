@@ -1,11 +1,11 @@
-﻿using CityNews_Domain.Business.GeocodingApi;
-using CityNews_Domain.Entities;
+﻿using Domain.Business.GeocodingApi;
+using Domain.Entities;
 
 using System.Threading.Tasks;
 
-namespace CityNews_Application.Interfaces {
+namespace Application.Interfaces {
   public interface IHistorialApplication {
-    Task<CityData[]> GetHistorial();
-    Task<bool> SaveToDB(CityData city);
+    Task<CityObject[]> GetHistorial();
+    Task<bool> SaveToDB(City city);
   }
 }

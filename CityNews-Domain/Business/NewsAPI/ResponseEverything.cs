@@ -1,7 +1,7 @@
 ﻿ using System;
 using System.Collections.Generic;
 
-namespace CityNews_Domain.Business.NewsApi
+namespace Domain.Business.NewsApi
 {
     public class ResponseEverything
     {

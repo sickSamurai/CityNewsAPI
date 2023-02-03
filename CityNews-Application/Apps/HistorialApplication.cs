@@ -2,51 +2,36 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-using CityNews_Application.Interfaces;
-
-using CityNews_Domain.Business.GeocodingApi;
-using CityNews_Domain.Entities;
-
-using CityNews_Persistence.Context;
+using Application.Interfaces;
+using Persistence;
+using Domain.Business.GeocodingApi;
+using Domain.Entities;
 
 using Microsoft.EntityFrameworkCore;
 
 using Newtonsoft.Json;
 
-namespace CityNews_Application.Apps {
+namespace Application.Apps {
   internal class HistorialApplication : IHistorialApplication {
 
-    private readonly HistorialContext _db;
+    private readonly CityNewsDbContext DbContext;
 
-    public HistorialApplication(HistorialContext context) {
-      _db = context;
+    public HistorialApplication(CityNewsDbContext context) {
+      DbContext = context;
     }
 
-    public async Task<CityData[]> GetHistorial() {
-      var results = await _db.City.ToArrayAsync();
-
-      return results.Select(City => {
-        return new CityData { Name = City.Name, Country = City.Country, Lat = City.Lat, Lon = City.Lon };
-      }).ToArray();
-
+    public async Task<CityObject[]> GetHistorial() {
+      var results = await DbContext.City.ToArrayAsync();
+      return results.Select(city => new CityObject { Name = city.Name, Country = city.Country, Lat = city.Lat, Lon = city.Lon }).ToArray();
     }
 
-    public async Task<bool> SaveToDB(CityData city) {
-      var isCitySaved = await (from cityRegister in _db.City
-                               where city.Lat == cityRegister.Lat && city.Lon == cityRegister.Lon
-                               select cityRegister).CountAsync() != 0;
-      if(isCitySaved) 
+    public async Task<bool> SaveToDB(City city) {
+      bool isCitySaved = DbContext.City.Where(savedCity => city.Lat == savedCity.Lat && city.Lon == savedCity.Lon).Any();
+      if(isCitySaved) {
         return false;
-      else {
-        var CityEntity = new CityEntity() {
-          ID = Guid.NewGuid().ToString(),
-          Name = city.Name,
-          Country = city.Country,
-          Lat = city.Lat,
-          Lon = city.Lon,
-        };
-        await _db.AddAsync(CityEntity);
-        return await _db.SaveChangesAsync() != 0;
+      } else {
+        DbContext.Add(city);
+        return await DbContext.SaveChangesAsync() != 0;
       }
     }
   }

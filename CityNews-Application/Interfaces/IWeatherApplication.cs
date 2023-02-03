@@ -1,9 +1,9 @@
-﻿using CityNews_Domain.Business.WeatherApi;
+﻿using Domain.Business.WeatherApi;
 using System.Threading.Tasks;
 
-namespace CityNews_Application.Interfaces {
+namespace Application.Interfaces {
   public interface IWeatherApplication
     {
-        Task<WeatherResponse> GetWeatherInfo(double lat, double lon);
+        Task<WeatherResponse> GetWeather(double lat, double lon);
     }
 }

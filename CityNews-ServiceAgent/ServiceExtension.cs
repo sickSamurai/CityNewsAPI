@@ -1,10 +1,9 @@
-﻿using CityNews_ServiceAgent.GeocodingAPI;
-using CityNews_ServiceAgent.NewsAPI;
-using CityNews_ServiceAgent.WeatherAPI;
+﻿using Microsoft.Extensions.DependencyInjection;
+using ServiceAgent.WeatherAPI;
+using ServiceAgent.GeocodingAPI;
+using ServiceAgent.NewsAPI;
 
-using Microsoft.Extensions.DependencyInjection;
-
-namespace CityNews_ServiceAgent {
+namespace ServiceAgent {
   public static class ServiceExtension {
     public static void AddServiceAgent(this IServiceCollection services) {
       services.AddScoped<INewsAPI, NewsApiClient>();

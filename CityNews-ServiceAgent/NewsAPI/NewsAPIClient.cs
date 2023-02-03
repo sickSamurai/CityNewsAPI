@@ -1,4 +1,4 @@
-﻿using CityNews_Domain.Business.NewsApi;
+﻿using Domain.Business.NewsApi;
 
 using Microsoft.Extensions.Configuration;
 
@@ -10,7 +10,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace CityNews_ServiceAgent.NewsAPI {
+namespace ServiceAgent.NewsAPI {
   public class NewsApiClient : INewsAPI {
     private readonly IConfiguration _configuration;
 
@@ -18,7 +18,7 @@ namespace CityNews_ServiceAgent.NewsAPI {
       _configuration = configuration;
     }
 
-    private async Task<ResponseEverything> DoRequest(string url) {
+    private async Task<ResponseEverything> GetRequest(string url) {
       HttpClient client = new HttpClient();
       client.DefaultRequestHeaders.Add("User-Agent", "CityNews");
       HttpResponseMessage response = await client.GetAsync(url);
@@ -35,8 +35,8 @@ namespace CityNews_ServiceAgent.NewsAPI {
         var query = _configuration["NewsApi:Query"];
         var apiKey = _configuration["NewsApi:Key"];
         string formatedQuery = string.Format(query, cityName, apiKey);
-        string completeURL = $"{baseAddress}{path}{formatedQuery}";        
-        return await DoRequest(completeURL);
+        string completeURL = $"{baseAddress}{path}{formatedQuery}";
+        return await GetRequest(completeURL);
       } catch(Exception ex) {
         throw ex;
       }

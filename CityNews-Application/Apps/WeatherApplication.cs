@@ -1,13 +1,13 @@
-﻿using CityNews_Application.Interfaces;
+﻿using Application.Interfaces;
 
-using CityNews_Domain.Business.WeatherApi;
+using ServiceAgent.WeatherAPI;
 
-using CityNews_ServiceAgent.WeatherAPI;
+using Domain.Business.WeatherApi;
 
 using System;
 using System.Threading.Tasks;
 
-namespace CityNews_Application.Apps {
+namespace Application.Apps {
   public class WeatherApplication : IWeatherApplication
     {
         private readonly IWeatherAPI weatherAPI;
@@ -15,7 +15,7 @@ namespace CityNews_Application.Apps {
             this.weatherAPI = weatherAPI;
         }
 
-        public async Task<WeatherResponse> GetWeatherInfo(double lat, double lon) {
+        public async Task<WeatherResponse> GetWeather(double lat, double lon) {
             return await weatherAPI.Get(lat, lon);            
         }
     }
